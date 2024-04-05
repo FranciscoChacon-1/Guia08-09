@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PracticaMVC00.Models.equipos>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mantenimiento de Equipos</h1>
+<br />
+
+<form asp-action="CrearEquipos">
+    @*Inicio del Formulario*@
+   
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Nombre</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBox("nombre", "", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-2">
+            @Html.Label("lblDescripcion", "Descripción")
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBox("descripción", "", new { @class = "form-control", @placeHolder = "Ingrese la descripción" })
+        </div>
+
+    </div>
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            @Html.Label("lblMarca", "Marca")
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownList("marca_id", ViewData["listadoMarcas"] as SelectList, "Seleccione una marca", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+    <div class="form-group">
+        <input type="submit" value="Enviar" class="btn btn-primary" />
+    </div>
+    </div>
+
+    @*Fin del Formulario*@
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marca_id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewData["ListadoEquipo"] != null)
+        {
+            foreach (var item in ViewData["ListadoEquipo"] as List<dynamic>)
+            {
+                <tr>
+                    <td>
+                        @item.nombre
+                    </td>
+                    <td>
+                        @item.descripcion
+                    </td>
+                    <td>
+                        @item.marca_id
+                    </td>
+                    <td>
+                        @item.marca_nombre
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No hay datos disponibles</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
